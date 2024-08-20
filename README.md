@@ -27,3 +27,7 @@ npm run build
 ```sh
 npm run lint
 ```
+firebase login
+firebase init
+npm run build
+firebase deploy
