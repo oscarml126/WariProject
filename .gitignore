@@ -12,11 +12,7 @@ lerna-debug.log*
 package-lock.json
 yarn.lock
 
-.DS_Store
-dist
-dist-ssr
-coverage
-*.local
+
 
 /cypress/videos/
 /cypress/screenshots/
