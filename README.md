@@ -28,6 +28,6 @@ npm run build
 npm run lint
 ```
 firebase login
-firebase init
+firebase init (escribir la carpeta dist)
 npm run build
 firebase deploy

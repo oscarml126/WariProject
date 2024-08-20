@@ -16,33 +16,32 @@
                                         </div>
                                     </div>
                                     <div class="pt-4">
-                                        <div class="flex flex-row justify-content-between align-items-start gap-2">
+                                        <div class="justify-content-between align-items-start gap-2">
                                             <div>
                                                 <div class="text-lg font-medium text-900 mt-1 product-nombre">{{
                                                     item.nombre }}</div>
                                             </div>
-                                            <div>
-                                                <div class="text-lg font-medium text-900 mt-1">
-                                                    Precio:
-                                                    <span v-if="item.precioDes">
-                                                        <input type="checkbox" v-model="item.useDiscount" />
-                                                        <strong>${{ item.useDiscount ? item.precioDes : item.precio
-                                                            }}</strong>
-                                                    </span>
-                                                    <span v-else>
-                                                        <strong>${{ item.precio }}</strong>
-                                                    </span>
-                                                </div>
-                                                <div class="text-lg font-medium text-900 mt-1">
-                                                    Cantidad:
-                                                    <input type="number" v-model.number="item.cantidad" min="1"
-                                                        class="p-inputtext" :max="item.cantidadTotal" />
-                                                </div>
-                                                <div v-if="item.cantidad > item.cantidadTotal"
-                                                    class="text-red-500 mt-1">
-                                                    No hay suficiente stock disponible.
-                                                </div>
+                                            <div class="text-lg font-medium text-900 mt-1">
+                                                Precio:
+                                                <span v-if="item.precioDes">
+                                                    <input type="checkbox" v-model="item.useDiscount" />
+                                                    <strong>${{ item.useDiscount ? item.precioDes : item.precio
+                                                        }}</strong>
+                                                </span>
+                                                <span v-else>
+                                                    <strong>${{ item.precio }}</strong>
+                                                </span>
                                             </div>
+                                            <div class="text-lg font-medium text-900 mt-1">
+                                                Cantidad:
+                                                <input type="number" v-model.number="item.cantidad" min="1"
+                                                    class="p-inputtext" :max="item.cantidadTotal" />
+                                            </div>
+                                            <div v-if="item.cantidad > item.cantidadTotal"
+                                                class="text-red-500 mt-1">
+                                                No hay suficiente stock disponible.
+                                            </div>
+                                            <Button label="Eliminar" class="p-button-danger mt-2" @click="removeProduct(index)"></Button>
                                         </div>
                                     </div>
                                 </div>
@@ -101,6 +100,12 @@ const totalAmount = computed(() => {
         return total + (precio * item.cantidad);
     }, 0).toFixed(2);
 });
+
+const removeProduct = (index) => {
+    cartProducts.value.splice(index, 1);
+    localStorage.setItem('productos', JSON.stringify(cartProducts.value));
+    toast.add({ severity: 'info', summary: 'Producto eliminado', detail: 'El producto ha sido eliminado del carrito', life: 3000 });
+};
 
 const confirmOrder = async () => {
     try {
